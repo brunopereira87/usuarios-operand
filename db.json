@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Helena Salazar",
+      "phone": "99856-5656",
+      "email": "helena@email.com",
+      "address": {
+        "street": "Rua H1",
+        "district": "Centro",
+        "number": "152",
+        "city": "Rio de Janeiro",
+        "state": "RJ"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Caio Beltrão",
+      "phone": "98956-5233",
+      "email": "caio@email.com",
+      "address": {
+        "street": "Rua Janus",
+        "district": "Centro",
+        "number": "785",
+        "city": "Olímpio de Noronha",
+        "state": "MG"
+      }
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    }
+  ]
+}
