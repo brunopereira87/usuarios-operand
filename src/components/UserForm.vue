@@ -15,8 +15,7 @@
       wrapper-class="form-group"
       input-class="form-control"
     />
-    <FormulateInput type="group" name="address">
-      <FormulateInput 
+    <FormulateInput 
         type="email"
         name="email"
         label="E-mail"
@@ -24,6 +23,8 @@
         wrapper-class="form-group"
         input-class="form-control"
       />
+
+    <FormulateInput type="group" name="address">
       <FormulateInput 
         type="text"
         name="street"
@@ -73,12 +74,11 @@
 
 export default {
   name: 'UserForm',
-
+  props: ['previous_user'],
   data(){
     return {
       userForm: {
         name: '',
-        photo:'',
         phone:'',
         email:'',
         address: {
@@ -91,11 +91,31 @@ export default {
       }
     }
   },
+  beforeMount(){
+    if(this.previous_user) this.userForm = this.initUserForm(this.previous_user);
+    console.log('previous:',this.previous_user);
+    console.log('form:',this.userForm);
+  },
   methods: {  
     handleSubmit(data){
-      this.$emit('saveUser',data)
+      const formatedUser = this.formatUser(data);
+      this.$emit('saveUser',formatedUser)
+    },
+    formatUser(user){
+      const address = user.address[0]; 
+      return {
+        ...user,
+        address
+      }
+    },
+    initUserForm(userForm){
+      const address = [userForm.address]
+      return {
+        ...userForm,
+        address
+      }
     }
-  },
+  }
   
 }
 </script>

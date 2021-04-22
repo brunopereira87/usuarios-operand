@@ -5,10 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    loading: false,
+    loading: true,
     mobileMenu: true,
     mobileMenuOpen: false,
-    error:null
+    alertMessage:null,
+    alertType:'success'
   },
 
   mutations: {
@@ -21,8 +22,23 @@ export default new Vuex.Store({
     UPDATE_MOBILE_OPEN(state, payload){
       state.mobileMenuOpen = payload;
     },
-    UPDATE_ERROR(state, payload){
-      state.error = payload;
+    UPDATE_ALERT_MESSAGE(state, payload){
+      state.alertMessage = payload;
+    },
+    UPDATE_ALERT_TYPE(state, payload){
+      state.alertType = payload;
+    },
+  },
+  actions: {
+    setAlert(context, payload){
+      context.commit('UPDATE_ALERT_TYPE',payload.type)
+      context.commit('UPDATE_ALERT_MESSAGE',payload.message);
+    },
+    resetAlert(context){
+      context.dispatch('setAlert',{
+        type: 'success',
+        message: null
+      })
     }
   }
 })

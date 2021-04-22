@@ -1,6 +1,8 @@
 <template>
   <header>
-    <Navbar v-if="$store.state.mobileMenuOpen" />
+    <transition>
+      <Navbar v-if="$store.state.mobileMenuOpen" />
+    </transition>
     <div class="header-bar">
       <button class="mobile-button" aria-label="Menu" @click="UPDATE_MOBILE_OPEN(true)"></button>
     </div>
@@ -53,5 +55,16 @@ export default {
   background: #fff;
   box-shadow: 0 6px #fff, 0 -6px #fff;
   transition: 0.2s;
+}
+
+.v-enter,
+.v-leave-to {
+  transform: translateY(-10vh);
+  opacity: 0;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.3s ease;
 }
 </style>

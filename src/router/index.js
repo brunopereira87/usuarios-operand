@@ -21,12 +21,14 @@ const routes = [
   {
     path: '/usuarios/:id',
     name: 'User',
-    component: User
+    component: User,
+    props: true
   },
   {
     path: '/usuarios/:id/editar',
     name: 'EditUser',
-    component: EditUser
+    component: EditUser,
+    props: true
   }
 ]
 

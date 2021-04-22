@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "name": "Helena Salazar",
+      "name": "Helena Baltar Salazar",
       "phone": "99856-5656",
       "email": "helena@email.com",
       "address": {
@@ -14,23 +14,30 @@
       }
     },
     {
-      "id": 2,
-      "name": "Caio Beltrão",
-      "phone": "98956-5233",
-      "email": "caio@email.com",
+      "name": "Bruno",
+      "phone": "65 3653-9656",
+      "email": "bruno_emanuel87@hotmail.com",
       "address": {
-        "street": "Rua Janus",
+        "street": "Praça Treze de Maio",
+        "city": "Três Corações",
+        "state": "MG",
         "district": "Centro",
-        "number": "785",
-        "city": "Olímpio de Noronha",
-        "state": "MG"
-      }
+        "number": "087.481.706-40"
+      },
+      "id": 2
     },
     {
+      "name": "Julia Françoso",
+      "phone": "35 991619564",
+      "email": "julia@email.com",
+      "address": {
+        "street": "Rua 1",
+        "district": "Bairro 1",
+        "number": "1",
+        "city": "Jacarepaguá",
+        "state": "RJ"
+      },
       "id": 3
-    },
-    {
-      "id": 4
     }
   ]
 }

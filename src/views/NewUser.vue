@@ -1,8 +1,8 @@
 <template>
-  <div class="new-user">
+  <section class="new-user">
     <h1 class="page-title">Novo Usuário</h1>
     <UserForm @saveUser="addUser" />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -16,15 +16,19 @@ export default {
   },
   methods: {
     async addUser(user){
+      
       const { url, options } = USER_POST(user);
       try {
         const resp = await fetch(url, options);
-        const json = await resp.json();
-        console.log(resp)
+        if(resp.ok) this.$router.push('/');
       }catch(error){
-        this.$store.commit('UPDATE_ERROR', error.message)
+        this.$store.dispatch({
+          type: 'error',
+          message: error.message
+        })
       }
     }
+    
   }
 }
 </script>

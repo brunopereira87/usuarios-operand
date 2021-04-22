@@ -1,5 +1,13 @@
 <template>
   <div id="app">
+    <transition name="modal">
+      <Modal v-if="loading">
+        <Loading />
+      </Modal>
+    </transition>
+    <transition name="alert">
+      <Alert v-if="alertMessage" />
+    </transition>
     <Header v-if="mobile" />
     <main class="main-container">
       <router-view/>
@@ -10,22 +18,26 @@
 <script>
 
 import Header from '@/components/Header'; 
+import Alert from '@/components/Alert'; 
+import Modal from '@/components/Modal'; 
+import Loading from '@/components/Loading'; 
+
+import { mapState } from 'vuex';
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Alert,
+    Modal,
+    Loading
   },
   computed: {
-    mobile(){
-      return this.$store.state.mobileMenu;
-    },
-    error(){
-      return this.$store.state.error;
-    }
+    ...mapState(['mobile', 'alertMessage', 'loading'])
   },
   watch: {
     $route(){
       this.$store.commit('UPDATE_MOBILE_OPEN', false);
+      this.$store.dispatch('resetAlert');
     }
   }
 }
@@ -58,6 +70,7 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
+  transition: all .3s;
 }
 .btn {
   padding: 1rem 2rem;
@@ -66,6 +79,22 @@ button {
   transition: all .2s;
 }
 
+.btn-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include bgcolor("highlight");
+  @include textcolor("white");
+  width: 3rem;
+  height: 3rem;
+  @include fontsize("default");
+  border-radius: 3px;
+  
+  &:hover,
+  &:active{
+    @include textcolor("light");
+  }
+}
 .btn-primary {
   @include bgcolor("first");
   @include textcolor("white");
@@ -81,6 +110,65 @@ button {
 
   .page-title {
     text-align: center;
+    margin-bottom: 3rem;
   }
+}
+
+.formulate-input {
+  margin-bottom: 1rem;
+}
+.form-group {
+  width: 100%;
+  label {
+    @include fontsize("default");
+    @include textcolor("dark");
+    font-weight: 700;
+    margin-bottom: .5rem;
+    display: block;
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-bottom: 2px solid map-get($colors,"light");
+  outline: none;
+  @include textcolor("dark");
+  @include fontsize("default");
+
+  &:focus {
+    border-bottom: 2px solid map-get($colors,"dark");
+  }
+}
+
+.formulate-input-errors {
+  list-style: none;
+
+  li {
+    @include fontsize("small2");
+    @include textcolor("error");
+  }
+}
+.alert-enter,
+.alert-leave-to {
+  transform: translateY(-10vh);
+  opacity: 0;
+}
+
+.alert-enter-active,
+.alert-leave-active {
+  transition: all 0.3s ease;
+}
+
+.modal-enter,
+.modal-leave-to {
+  transform: translateY(-10vh);
+  opacity: 0;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.3s ease;
 }
 </style>
