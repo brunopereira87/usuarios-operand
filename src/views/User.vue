@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     async getUser(id){
-      console.log(id)
       const { url, options } = USER_GET(id);
       
       try{

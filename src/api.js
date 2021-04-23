@@ -1,7 +1,6 @@
 const API_URL = 'http://localhost:3333';
 
 export function USER_POST(body){
-  console.log(body)
   return {
     url: `${API_URL}/users`,
     options: {

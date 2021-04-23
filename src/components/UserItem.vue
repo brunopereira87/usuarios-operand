@@ -16,25 +16,37 @@
 
 <script>
 import { USER_DELETE } from '@/api';
-
+import { mapMutations, mapActions } from 'vuex';
 export default {
   name: 'UserItem',
   props:['user'],
   methods: {
+    ...mapActions(['setAlert']),
+    ...mapMutations(['UPDATE_LOADING']),
     async deleteUser(id){
       const confirm = window.confirm('Deseja excluir este usuário?');
 
       if(confirm){
+        this.UPDATE_LOADING(true);
         const { url, options } = USER_DELETE(id);
 
         try {
           const resp = await fetch(url, options);
-          if(resp.ok) this.$emit('refreshUsers');
+          if(resp.ok) {
+            this.setAlert({
+              type: 'success',
+              message: 'Usuário atualizado com sucesso'
+            });
+            
+            this.$emit('refreshUsers');
+          }
         } catch(error){
-          this.$store.dispatch({
+          this.setAlert({
             type: 'error',
             message: error.message
-          })
+          });
+        } finally {
+          this.UPDATE_LOADING(false);
         }
       }
       
