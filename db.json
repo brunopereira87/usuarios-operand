@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "name": "Helena Baltar Salazar",
+      "name": "Helena Baltar",
       "phone": "99856-5656",
       "email": "helena@email.com",
       "address": {
@@ -14,9 +14,9 @@
       }
     },
     {
-      "name": "Bruno",
+      "name": "Bruno Sanches",
       "phone": "65 3653-9656",
-      "email": "bruno_emanuel87@hotmail.com",
+      "email": "bruno@email.com",
       "address": {
         "street": "Praça Treze de Maio",
         "city": "Três Corações",
@@ -38,6 +38,19 @@
         "state": "RJ"
       },
       "id": 3
+    },
+    {
+      "name": "Henrique Amadeu",
+      "phone": "88586-9656",
+      "email": "henrique@email.com",
+      "address": {
+        "street": "Rua do Jacaré",
+        "district": "Bairro 2",
+        "number": "45",
+        "city": "Divinópolis",
+        "state": "MG"
+      },
+      "id": 4
     }
   ]
 }

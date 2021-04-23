@@ -8,6 +8,7 @@
 <script>
 import { USER_GET, USER_PUT } from '@/api';
 import UserForm from '@/components/UserForm';
+import { mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'EditUser',
@@ -21,6 +22,8 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['UPDATE_LOADING']),
+    ...mapActions(['setAlert']),
     async getUser(id){
       const { url, options } = USER_GET(id);
       
@@ -30,25 +33,37 @@ export default {
         
         if(resp.ok) this.user = json;
       } catch( error ) {
-        this.$store.dispatch({
-            type: 'error',
-            message: error.message
-          })
+        this.setAlert({
+          type: 'error',
+          message: error.message
+        });
+      } finally {
+        this.UPDATE_LOADING(false);
       }
     },
 
     async updateUser(user){
+      this.UPDATE_LOADING(true);
       const { url, options } = USER_PUT(this.id, user);
 
       try{
         const resp = await fetch(url, options);
         const json = await resp.json();
-        if(resp.ok) this.$router.push('/');
+        if(resp.ok) {
+          this.setAlert({
+            type: 'success',
+            message: 'Usuário atualizado com sucesso'
+          });
+
+          this.$router.push('/');
+        }
       } catch(error) {
-        this.$store.dispatch({
+        this.setAlert({
           type: 'error',
           message: error.message
-        })
+        });
+      } finally {
+        this.UPDATE_LOADING(false);
       }
     }
   },

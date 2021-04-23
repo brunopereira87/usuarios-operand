@@ -8,6 +8,7 @@
 <script>
 import UserForm from '@/components/UserForm';
 import { USER_POST } from '@/api';
+import { mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'NewUser',
@@ -15,20 +16,34 @@ export default {
     UserForm
   },
   methods: {
+    ...mapMutations(['UPDATE_LOADING']),
+    ...mapActions(['setAlert']),
     async addUser(user){
-      
+      this.UPDATE_LOADING(true);
       const { url, options } = USER_POST(user);
       try {
         const resp = await fetch(url, options);
-        if(resp.ok) this.$router.push('/');
+        if(resp.ok) {
+          this.setAlert({
+            type: 'success',
+            message: 'Usuário cadastrado com sucesso'
+          });
+
+          this.$router.push('/');
+        }
       }catch(error){
-        this.$store.dispatch({
+        this.setAlert({
           type: 'error',
           message: error.message
-        })
+        });
+
+      } finally {
+        this.UPDATE_LOADING(false);
       }
     }
-    
+  },
+  created(){
+    this.UPDATE_LOADING(false);
   }
 }
 </script>

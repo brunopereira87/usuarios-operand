@@ -13,7 +13,7 @@
 <script>
 import { USERS_GET } from '@/api';
 import UserItem from '@/components/UserItem';
-
+import { mapMutations } from 'vuex';
 export default {
   name: 'Home',
   components: {
@@ -25,9 +25,10 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['UPDATE_LOADING']),
     async getUsers(){
-      const { url, options } = USERS_GET();
       
+      const { url, options } = USERS_GET();
       try{
         const resp = await fetch(url, options);
         const json = await resp.json();
@@ -38,6 +39,8 @@ export default {
           type: 'error',
           message: error.message
         })
+      } finally {
+        this.UPDATE_LOADING(false);
       }
     },
     async refreshUsers(){
@@ -50,7 +53,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.users {
-  
-}
+
 </style>

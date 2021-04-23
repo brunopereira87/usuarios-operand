@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    loading: true,
-    mobileMenu: true,
+    loading: false,
+    isMobile: true,
     mobileMenuOpen: false,
     alertMessage:null,
     alertType:'success'
@@ -16,8 +16,8 @@ export default new Vuex.Store({
     UPDATE_LOADING(state, payload){
       state.loading = payload;
     },
-    UPDATE_MOBILE(state, payload){
-      state.mobileMenu = payload;
+    UPDATE_IS_MOBILE(state, payload){
+      state.isMobile = payload;
     },
     UPDATE_MOBILE_OPEN(state, payload){
       state.mobileMenuOpen = payload;

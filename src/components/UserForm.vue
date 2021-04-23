@@ -93,8 +93,6 @@ export default {
   },
   beforeMount(){
     if(this.previous_user) this.userForm = this.initUserForm(this.previous_user);
-    console.log('previous:',this.previous_user);
-    console.log('form:',this.userForm);
   },
   methods: {  
     handleSubmit(data){
@@ -120,6 +118,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

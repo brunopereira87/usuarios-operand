@@ -39,7 +39,7 @@ export default {
   left: 0%;
   width: 100%;
   padding: 2rem;
-  
+  z-index: 1;
   @include textcolor("white");
   display: flex;
   justify-content: center;

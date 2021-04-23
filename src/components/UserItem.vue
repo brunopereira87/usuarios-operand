@@ -47,6 +47,7 @@ export default {
 .user {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   background: rgba(#d0b9f7, 0.4);
   margin-bottom: 2rem;

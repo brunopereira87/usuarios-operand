@@ -8,7 +8,8 @@
     <transition name="alert">
       <Alert v-if="alertMessage" />
     </transition>
-    <Header v-if="mobile" />
+    <Header v-if="isMobile" />
+    <Sidebar v-else />
     <main class="main-container">
       <router-view/>
     </main>
@@ -18,26 +19,44 @@
 <script>
 
 import Header from '@/components/Header'; 
+import Sidebar from '@/components/Sidebar'; 
 import Alert from '@/components/Alert'; 
 import Modal from '@/components/Modal'; 
 import Loading from '@/components/Loading'; 
 
 import { mapState } from 'vuex';
+import { mapMutations } from 'vuex';
 export default {
   name: 'App',
   components: {
     Header,
+    Sidebar,
     Alert,
     Modal,
     Loading
   },
   computed: {
-    ...mapState(['mobile', 'alertMessage', 'loading'])
+    ...mapState(['isMobile', 'alertMessage', 'loading'])
+  },
+  methods: {
+    ...mapMutations(['UPDATE_IS_MOBILE','UPDATE_MOBILE_OPEN','UPDATE_LOADING']),
+    setIsMobile(){
+      const { matches } = window.matchMedia('(max-width: 767px)');
+      this.UPDATE_IS_MOBILE(matches);
+    }
+  },
+  mounted(){
+    window.addEventListener('resize',this.setIsMobile);
+    this.setIsMobile();
+  },
+  beforeDestroy(){
+    window.removeEventListener('resize',this.setIsMobile)
   },
   watch: {
     $route(){
-      this.$store.commit('UPDATE_MOBILE_OPEN', false);
-      this.$store.dispatch('resetAlert');
+      this.UPDATE_MOBILE_OPEN(false);
+      this.UPDATE_LOADING(true);
+      // this.$store.dispatch('resetAlert');
     }
   }
 }
@@ -64,6 +83,7 @@ h2 {
 }
 a {
   text-decoration: none;
+  transition: all .3s;
 }
 
 button {
@@ -73,10 +93,9 @@ button {
   transition: all .3s;
 }
 .btn {
-  padding: 1rem 2rem;
+  padding: 1rem 3rem;
   @include fontsize("default");
   border-radius: 5px;
-  transition: all .2s;
 }
 
 .btn-icon {
@@ -107,13 +126,19 @@ button {
   width: 100%;
   max-width: 86rem;
   padding: 2rem;
-
+  margin: 0 auto;
   .page-title {
     text-align: center;
     margin-bottom: 3rem;
+    @include fontsize("large");
   }
 }
 
+.formulate-form {
+  .btn {
+    margin-top: 1rem;
+  }
+}
 .formulate-input {
   margin-bottom: 1rem;
 }
@@ -170,5 +195,12 @@ button {
 .modal-enter-active,
 .modal-leave-active {
   transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  #app {
+    display: grid;
+    grid-template-columns: #{"min(40vw, 350px)"} 1fr ;
+  }
 }
 </style>
